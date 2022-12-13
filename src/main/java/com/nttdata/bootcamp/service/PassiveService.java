@@ -7,5 +7,7 @@ import reactor.core.publisher.Mono;
 //Interface Service
 @Service
 public interface PassiveService {
-    Mono<Passive> searchByPersonalCustomer(Passive dataPersonalCustomer);
+    Mono<Passive> searchBySavingCustomer(Passive dataPersonalCustomer);
+    Mono<Passive> searchByCurrentCustomer(Passive dataPersonalCustomer);
+    Mono<Passive> searchByFixedTermCustomer(Passive dataPersonalCustomer);
 }

@@ -13,14 +13,34 @@ public class PassiveServiceImpl implements PassiveService {
     @Autowired
     private PassiveRepository passiveRepository;
 
-    public Mono<Passive> searchByPersonalCustomer(Passive dataPersonalCustomer){
+    public Mono<Passive> searchBySavingCustomer(Passive dataPersonalCustomer){
         Mono<Passive> savingsAccount = passiveRepository
                 .findAll()
                 .filter(x -> x.getDni().equals(dataPersonalCustomer.getDni()) &&
-                        x.getTypeCustomer().equals(dataPersonalCustomer.getTypeCustomer())
+                        x.getTypeCustomer().equals(dataPersonalCustomer.getTypeCustomer()) &&
+                        x.getSaving().equals(true)
                 )
                 .next();
         return savingsAccount;
     }
-
+    public Mono<Passive> searchByCurrentCustomer(Passive dataPersonalCustomer){
+        Mono<Passive> currentAccount = passiveRepository
+                .findAll()
+                .filter(x -> x.getDni().equals(dataPersonalCustomer.getDni()) &&
+                        x.getTypeCustomer().equals(dataPersonalCustomer.getTypeCustomer()) &&
+                        x.getCurrentAccount().equals(true)
+                )
+                .next();
+        return currentAccount;
+    }
+    public Mono<Passive> searchByFixedTermCustomer(Passive dataPersonalCustomer){
+        Mono<Passive> fixedTermAccount = passiveRepository
+                .findAll()
+                .filter(x -> x.getDni().equals(dataPersonalCustomer.getDni()) &&
+                        x.getTypeCustomer().equals(dataPersonalCustomer.getTypeCustomer()) &&
+                        x.getFixedTerm().equals(true)
+                )
+                .next();
+        return fixedTermAccount;
+    }
 }

@@ -4,6 +4,7 @@ import com.nttdata.bootcamp.entity.Passive;
 import com.nttdata.bootcamp.repository.PassiveRepository;
 import com.nttdata.bootcamp.service.PassiveService;
 import com.nttdata.bootcamp.service.SavingAccountService;
+import com.nttdata.bootcamp.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -52,7 +53,13 @@ public class SavingAccountServiceImpl implements SavingAccountService {
         dataSavingAccount.setSaving(true);
         dataSavingAccount.setCurrentAccount(false);
         dataSavingAccount.setFixedTerm(false);
-        passive = passiveService.searchByPersonalCustomer(dataSavingAccount);
+        if(dataSavingAccount.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
+            passive = passiveService.searchBySavingCustomer(dataSavingAccount);
+        }
+        if(dataSavingAccount.getTypeCustomer().equals(Constant.BUSINESS_CUSTOMER)){
+
+        }
+
         return passive
                 .flatMap(__ -> Mono.<Passive>error(new Error("El cliente con dni " + dataSavingAccount.getDni() + " YA TIENE UNA CUENTA")))
                 .switchIfEmpty(passiveRepository.save(dataSavingAccount));

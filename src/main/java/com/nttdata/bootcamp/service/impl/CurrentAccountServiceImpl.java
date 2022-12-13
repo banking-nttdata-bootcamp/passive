@@ -54,7 +54,7 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
         dataCurrentAccount.setCurrentAccount(true);
         dataCurrentAccount.setFixedTerm(false);
         if(dataCurrentAccount.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
-            passive = passiveService.searchByPersonalCustomer(dataCurrentAccount);
+            passive = passiveService.searchByCurrentCustomer(dataCurrentAccount);
         }
         return passive
                 .flatMap(__ -> Mono.<Passive>error(new Error("El cliente con dni " + dataCurrentAccount.getDni() + " YA TIENE UNA CUENTA")))

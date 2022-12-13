@@ -4,6 +4,7 @@ import com.nttdata.bootcamp.entity.Passive;
 import com.nttdata.bootcamp.repository.PassiveRepository;
 import com.nttdata.bootcamp.service.FixedTermService;
 import com.nttdata.bootcamp.service.PassiveService;
+import com.nttdata.bootcamp.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -53,7 +54,12 @@ public class FixedTermServiceImpl implements FixedTermService {
         dataFixedTerm.setSaving(false);
         dataFixedTerm.setCurrentAccount(false);
         dataFixedTerm.setFixedTerm(true);
-        passive = passiveService.searchByPersonalCustomer(dataFixedTerm);
+        if(dataFixedTerm.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
+            passive = passiveService.searchBySavingCustomer(dataFixedTerm);
+        }
+        if(dataFixedTerm.getTypeCustomer().equals(Constant.BUSINESS_CUSTOMER)){
+
+        }
         return passive
                 .flatMap(__ -> Mono.<Passive>error(new Error("El cliente con dni " + dataFixedTerm.getDni() + " YA TIENE UNA CUENTA")))
                 .switchIfEmpty(passiveRepository.save(dataFixedTerm));
