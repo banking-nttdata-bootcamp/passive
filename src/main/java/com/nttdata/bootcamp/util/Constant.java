@@ -9,4 +9,7 @@ public class Constant {
     public static final String NO_RECORDS = "No existen registros";
     public static final String SAVING_ACCOUNT_NOT_EXIST = "Cuenta de ahorro no existe";
     public static final String SAVING_ACCOUNT_EXIST = "Cuenta de ahorro ya existe";
+
+    public static final String PROFILE_VIP = "VIP";
+    public static final String PROFILE_PYME = "PYME";
 }

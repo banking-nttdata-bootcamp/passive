@@ -45,7 +45,7 @@ public class SavingAccountServiceImpl implements SavingAccountService {
     }
 
     @Override
-    public Mono<Passive> saveSavingAccount(Passive dataSavingAccount) {
+    public Mono<Passive> saveSavingAccount(Passive dataSavingAccount, String typeProfile, boolean creditCard) {
         Mono<Passive> passive = Mono.empty();
         dataSavingAccount.setFreeCommission(true);
         dataSavingAccount.setCommissionMaintenance(0);
@@ -53,6 +53,16 @@ public class SavingAccountServiceImpl implements SavingAccountService {
         dataSavingAccount.setSaving(true);
         dataSavingAccount.setCurrentAccount(false);
         dataSavingAccount.setFixedTerm(false);
+        if(typeProfile.equals(Constant.PROFILE_VIP) && creditCard){
+            dataSavingAccount.setDailyAverage(true);
+            dataSavingAccount.setFlagVip(true);
+        }
+        else{
+            dataSavingAccount.setDailyAverage(false);
+            dataSavingAccount.setFlagVip(false);
+        }
+
+
         if(dataSavingAccount.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
             passive = passiveService.searchBySavingCustomer(dataSavingAccount);
         }

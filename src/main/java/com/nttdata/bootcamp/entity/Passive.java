@@ -29,10 +29,16 @@ public class Passive {
     private Boolean currentAccount;
     private Boolean fixedTerm;
 
+
     private Boolean freeCommission;
     private Number commissionMaintenance;
     private Boolean movementsMonthly;
     private Number limitMovementsMonthly;
+
+    private Boolean dailyAverage;
+    private Boolean flagVip;
+    private Boolean flagPyme;
+
 
     private String status;
 

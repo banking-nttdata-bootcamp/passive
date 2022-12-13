@@ -45,14 +45,23 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
     }
 
     @Override
-    public Mono<Passive> saveCurrentAccount(Passive dataCurrentAccount) {
+    public Mono<Passive> saveCurrentAccount(Passive dataCurrentAccount, String typeProfile,boolean creditCard) {
         Mono<Passive> passive = Mono.empty();
-        dataCurrentAccount.setFreeCommission(false);
+
+        if(typeProfile.equals(Constant.PROFILE_PYME) && creditCard){
+            dataCurrentAccount.setFreeCommission(true);
+            dataCurrentAccount.setFlagPyme(true);
+        }
+        else{
+            dataCurrentAccount.setFreeCommission(false);
+            dataCurrentAccount.setFlagPyme(false);
+        }
         dataCurrentAccount.setMovementsMonthly(false);
         dataCurrentAccount.setLimitMovementsMonthly(0);
         dataCurrentAccount.setSaving(false);
         dataCurrentAccount.setCurrentAccount(true);
         dataCurrentAccount.setFixedTerm(false);
+
         if(dataCurrentAccount.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
             passive = passiveService.searchByCurrentCustomer(dataCurrentAccount);
         }
