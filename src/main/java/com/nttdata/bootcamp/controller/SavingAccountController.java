@@ -51,9 +51,8 @@ public class SavingAccountController {
 
 	//Save Saving Account
 	//@CircuitBreaker(name = "passive", fallbackMethod = "fallBackGetSaving")
-	@PostMapping(value = "/saveSavingAccount/{typeProfile}/{flagCreditCard}")
+	@PostMapping(value = "/saveSavingAccount/{flagCreditCard}")
 	public Mono<Passive> saveSavingAccount(@RequestBody SavingAccountDto account,
-										   @PathVariable("typeProfile") String typeProfile,
 										   @PathVariable("flagCreditCard") Boolean flagCreditCard){
 
 		Passive dataPassiveSaving = new Passive();
@@ -68,7 +67,7 @@ public class SavingAccountController {
 		}).onErrorReturn(dataPassiveSaving).onErrorResume(e -> Mono.just(dataPassiveSaving))
 				.onErrorMap(f -> new InterruptedException(f.getMessage())).subscribe(x -> LOGGER.info(x.toString()));
 
-		Mono<Passive> passiveMono = savingAccountService.saveSavingAccount(dataPassiveSaving,typeProfile,flagCreditCard);
+		Mono<Passive> passiveMono = savingAccountService.saveSavingAccount(dataPassiveSaving,flagCreditCard);
 		return passiveMono;
 	}
 

@@ -45,10 +45,10 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
     }
 
     @Override
-    public Mono<Passive> saveCurrentAccount(Passive dataCurrentAccount, String typeProfile,boolean creditCard) {
+    public Mono<Passive> saveCurrentAccount(Passive dataCurrentAccount,Boolean creditCard) {
         Mono<Passive> passive = Mono.empty();
 
-        if(typeProfile.equals(Constant.PROFILE_PYME) && creditCard){
+        if( creditCard){
             dataCurrentAccount.setFreeCommission(true);
             dataCurrentAccount.setFlagPyme(true);
         }

@@ -66,15 +66,14 @@ public class CurrentAccountController {
 				}).onErrorReturn(dataCurrentAccount).onErrorResume(e -> Mono.just(dataCurrentAccount))
 				.onErrorMap(f -> new InterruptedException(f.getMessage())).subscribe(x -> LOGGER.info(x.toString()));
 
-		Mono<Passive> passiveMono = currentAccountService.saveCurrentAccount(dataCurrentAccount,"", false);
+		Mono<Passive> passiveMono = currentAccountService.saveCurrentAccount(dataCurrentAccount, false);
 		return passiveMono;
 	}
 
 	//Save Current Account Business
 	//@CircuitBreaker(name = "passive", fallbackMethod = "fallBackGetCurrent")
-	@PostMapping(value = "/saveCurrentAccountBusiness/{typeProfile}/{flagCreditCard}")
+	@PostMapping(value = "/saveCurrentAccountBusiness/{flagCreditCard}")
 	public Mono<Passive> saveCurrentAccountBusiness(@RequestBody CurrentAccountDto account,
-													@PathVariable("typeProfile") String typeProfile,
 													@PathVariable("flagCreditCard") Boolean flagCreditCard){
 
 		Passive dataCurrentAccount = new Passive();
@@ -89,7 +88,7 @@ public class CurrentAccountController {
 				}).onErrorReturn(dataCurrentAccount).onErrorResume(e -> Mono.just(dataCurrentAccount))
 				.onErrorMap(f -> new InterruptedException(f.getMessage())).subscribe(x -> LOGGER.info(x.toString()));
 
-		Mono<Passive> passiveMono = currentAccountService.saveCurrentAccount(dataCurrentAccount, typeProfile,flagCreditCard);
+		Mono<Passive> passiveMono = currentAccountService.saveCurrentAccount(dataCurrentAccount,flagCreditCard);
 		return passiveMono;
 	}
 

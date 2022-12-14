@@ -9,7 +9,7 @@ public interface SavingAccountService {
     Flux<Passive> findAllSavingAccount();
     Flux<Passive> findSavingAccountByCustomer(String dni);
     Mono<Passive> findSavingAccountByAccountNumber(String accountNumber);
-    Mono<Passive> saveSavingAccount(Passive dataSavingAccount, String typeProfile, boolean creditCard);
+    Mono<Passive> saveSavingAccount(Passive dataSavingAccount, Boolean creditCard);
     Mono<Passive> updateSavingAccount(Passive dataSavingAccount);
     Mono<Void> deleteSavingAccount(String accountNumber);
 }
