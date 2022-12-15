@@ -23,6 +23,9 @@ public class Passive {
 
     private String dni;
     private String typeCustomer;
+    private Boolean flagVip;
+    private Boolean flagPyme;
+
     private String accountNumber;
 
     private Boolean saving;
@@ -36,8 +39,7 @@ public class Passive {
     private Number limitMovementsMonthly;
 
     private Boolean dailyAverage;
-    private Boolean flagVip;
-    private Boolean flagPyme;
+
 
 
     private String status;

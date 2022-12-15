@@ -54,6 +54,8 @@ public class FixedTermServiceImpl implements FixedTermService {
         dataFixedTerm.setSaving(false);
         dataFixedTerm.setCurrentAccount(false);
         dataFixedTerm.setFixedTerm(true);
+        dataFixedTerm.setFlagVip(false);
+        dataFixedTerm.setFlagPyme(false);
         if(dataFixedTerm.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
             passive = passiveService.searchBySavingCustomer(dataFixedTerm);
         }

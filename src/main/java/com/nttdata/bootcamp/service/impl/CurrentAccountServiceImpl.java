@@ -51,11 +51,15 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
         if( creditCard){
             dataCurrentAccount.setFreeCommission(true);
             dataCurrentAccount.setFlagPyme(true);
+
         }
         else{
             dataCurrentAccount.setFreeCommission(false);
             dataCurrentAccount.setFlagPyme(false);
+
         }
+        dataCurrentAccount.setFlagVip(false);
+
         dataCurrentAccount.setMovementsMonthly(false);
         dataCurrentAccount.setLimitMovementsMonthly(0);
         dataCurrentAccount.setSaving(false);
