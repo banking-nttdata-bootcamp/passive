@@ -70,7 +70,7 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
             passive = passiveService.searchByCurrentCustomer(dataCurrentAccount);
         }
         return passive
-                .flatMap(__ -> Mono.<Passive>error(new Error("El cliente con dni " + dataCurrentAccount.getDni() + " YA TIENE UNA CUENTA")))
+                .flatMap(__ -> Mono.<Passive>error(new Error("The customer with DNI" + dataCurrentAccount.getDni() + " have an account")))
                 .switchIfEmpty(passiveRepository.save(dataCurrentAccount));
     }
 
@@ -83,7 +83,7 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
             passive.setModificationDate(dataCurrentAccount.getModificationDate());
             return passiveRepository.save(passive);
         }catch (Exception e){
-            return Mono.<Passive>error(new Error("El número de cuenta " + dataCurrentAccount.getAccountNumber() + " NO EXISTE"));
+            return Mono.<Passive>error(new Error("The account number " + dataCurrentAccount.getAccountNumber() + " do not exists"));
         }
     }
 
@@ -93,7 +93,7 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
         try {
             return passiveRepository.delete(passiveMono.block());
         }catch (Exception e){
-            return Mono.<Void>error(new Error("El número de cuenta " + accountNumber + " NO EXISTE"));
+            return Mono.<Void>error(new Error("The customer with DNI " + accountNumber + " do not exists"));
         }
     }
 
