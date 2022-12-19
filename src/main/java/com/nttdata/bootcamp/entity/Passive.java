@@ -37,6 +37,7 @@ public class Passive {
     private Number commissionMaintenance;
     private Boolean movementsMonthly;
     private Number limitMovementsMonthly;
+    private Number commissionTransaction;
 
     private Boolean dailyAverage;
 
