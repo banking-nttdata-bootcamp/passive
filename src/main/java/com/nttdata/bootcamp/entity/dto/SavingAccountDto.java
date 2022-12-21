@@ -12,4 +12,5 @@ public class SavingAccountDto {
     private String typeCustomer;
     private String accountNumber;
     private Number limitMovementsMonthly;
+    private Number commissionTransaction;
 }

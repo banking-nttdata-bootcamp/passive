@@ -57,13 +57,13 @@ public class FixedTermServiceImpl implements FixedTermService {
         dataFixedTerm.setFlagVip(false);
         dataFixedTerm.setFlagPyme(false);
         if(dataFixedTerm.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
-            passive = passiveService.searchBySavingCustomer(dataFixedTerm);
+            passive = passiveService.searchByFixedTermCustomer(dataFixedTerm);
         }
         if(dataFixedTerm.getTypeCustomer().equals(Constant.BUSINESS_CUSTOMER)){
 
         }
         return passive
-                .flatMap(__ -> Mono.<Passive>error(new Error("El cliente con dni " + dataFixedTerm.getDni() + " YA TIENE UNA CUENTA")))
+                .flatMap(__ -> Mono.<Passive>error(new Error("The customer with DNI " + dataFixedTerm.getDni() + " have and account")))
                 .switchIfEmpty(passiveRepository.save(dataFixedTerm));
         //return passiveSavingRepository.save(dataPassiveSaving);
     }
@@ -76,7 +76,7 @@ public class FixedTermServiceImpl implements FixedTermService {
             passive.setModificationDate(dataFixedTerm.getModificationDate());
             return passiveRepository.save(passive);
         }catch (Exception e){
-            return Mono.<Passive>error(new Error("El número de cuenta " + dataFixedTerm.getAccountNumber() + " NO EXISTE"));
+            return Mono.<Passive>error(new Error("The account number " + dataFixedTerm.getAccountNumber() + " do not exists"));
         }
     }
 
@@ -86,7 +86,7 @@ public class FixedTermServiceImpl implements FixedTermService {
         try{
             return passiveRepository.delete(passiveMono.block());
         }catch (Exception e){
-            return Mono.<Void>error(new Error("El número de cuenta " + accountNumber + " NO EXISTE"));
+            return Mono.<Void>error(new Error("The account number " + accountNumber + " do not exists"));
         }
     }
 

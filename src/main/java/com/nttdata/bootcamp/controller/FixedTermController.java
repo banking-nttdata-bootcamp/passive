@@ -62,6 +62,7 @@ public class FixedTermController {
 					t.setStatus(Constant.PASSIVE_ACTIVE);
 					t.setCreationDate(new Date());
 					t.setModificationDate(new Date());
+					t.setCommissionTransaction(0.00);
 				}).onErrorReturn(dataFixedTerm).onErrorResume(e -> Mono.just(dataFixedTerm))
 				.onErrorMap(f -> new InterruptedException(f.getMessage())).subscribe(x -> LOGGER.info(x.toString()));
 

@@ -85,6 +85,7 @@ public class CurrentAccountController {
 					t.setStatus(Constant.PASSIVE_ACTIVE);
 					t.setCreationDate(new Date());
 					t.setModificationDate(new Date());
+					t.setCommissionTransaction(account.getCommissionTransaction());
 				}).onErrorReturn(dataCurrentAccount).onErrorResume(e -> Mono.just(dataCurrentAccount))
 				.onErrorMap(f -> new InterruptedException(f.getMessage())).subscribe(x -> LOGGER.info(x.toString()));
 

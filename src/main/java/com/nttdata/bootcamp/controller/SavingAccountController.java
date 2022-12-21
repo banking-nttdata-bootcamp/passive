@@ -64,6 +64,7 @@ public class SavingAccountController {
 			t.setStatus(Constant.PASSIVE_ACTIVE);
 			t.setCreationDate(new Date());
 			t.setModificationDate(new Date());
+			t.setCommissionTransaction(account.getCommissionTransaction());
 		}).onErrorReturn(dataPassiveSaving).onErrorResume(e -> Mono.just(dataPassiveSaving))
 				.onErrorMap(f -> new InterruptedException(f.getMessage())).subscribe(x -> LOGGER.info(x.toString()));
 

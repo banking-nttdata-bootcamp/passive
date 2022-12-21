@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CurrentAccountDto {
+public class PassiveDto {
     private String dni;
+    private String typeCustomer;
     private String accountNumber;
-    private Number commissionMaintenance;
-    private Number commissionTransaction;
+    private String typeAccount;
 }

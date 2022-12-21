@@ -73,7 +73,7 @@ public class SavingAccountServiceImpl implements SavingAccountService {
         }
 
         return passive
-                .flatMap(__ -> Mono.<Passive>error(new Error("El cliente con dni " + dataSavingAccount.getDni() + " YA TIENE UNA CUENTA")))
+                .flatMap(__ -> Mono.<Passive>error(new Error("The customer with DNI " + dataSavingAccount.getDni() + " have an account")))
                 .switchIfEmpty(passiveRepository.save(dataSavingAccount));
         //return passiveSavingRepository.save(dataPassiveSaving);
     }
@@ -87,7 +87,7 @@ public class SavingAccountServiceImpl implements SavingAccountService {
             passive.setModificationDate(dataSavingAccount.getModificationDate());
             return passiveRepository.save(passive);
         }catch (Exception e){
-            return Mono.<Passive>error(new Error("El número de cuenta " + dataSavingAccount.getAccountNumber() + " NO EXISTE"));
+            return Mono.<Passive>error(new Error("The account number " + dataSavingAccount.getAccountNumber() + " do not exists"));
         }
     }
 
@@ -97,7 +97,7 @@ public class SavingAccountServiceImpl implements SavingAccountService {
         try {
             return passiveRepository.delete(passiveMono.block());
         }catch (Exception e){
-            return Mono.<Void>error(new Error("El número de cuenta " + accountNumber + " NO EXISTE"));
+            return Mono.<Void>error(new Error("The account number " + accountNumber + " do not exists"));
         }
     }
 
