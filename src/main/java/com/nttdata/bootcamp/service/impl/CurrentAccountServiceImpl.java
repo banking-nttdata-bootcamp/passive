@@ -4,6 +4,7 @@ import com.nttdata.bootcamp.entity.Passive;
 import com.nttdata.bootcamp.repository.PassiveRepository;
 import com.nttdata.bootcamp.service.CurrentAccountService;
 import com.nttdata.bootcamp.service.PassiveService;
+import com.nttdata.bootcamp.service.kafka.CustomerEventsService;
 import com.nttdata.bootcamp.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +66,10 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
         dataCurrentAccount.setSaving(false);
         dataCurrentAccount.setCurrentAccount(true);
         dataCurrentAccount.setFixedTerm(false);
+
+         /*this.customerEventsService.customerList()
+                .filter(x -> x.getDni().equals(dataCurrentAccount.getDni()))
+                .next();*/
 
         if(dataCurrentAccount.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
             passive = passiveService.searchByCurrentCustomer(dataCurrentAccount);

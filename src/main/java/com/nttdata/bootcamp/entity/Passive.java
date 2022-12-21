@@ -40,8 +40,6 @@ public class Passive {
 
     private Boolean dailyAverage;
 
-
-
     private String status;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
