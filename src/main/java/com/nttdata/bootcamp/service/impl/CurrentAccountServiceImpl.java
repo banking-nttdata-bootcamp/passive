@@ -4,7 +4,6 @@ import com.nttdata.bootcamp.entity.Passive;
 import com.nttdata.bootcamp.repository.PassiveRepository;
 import com.nttdata.bootcamp.service.CurrentAccountService;
 import com.nttdata.bootcamp.service.PassiveService;
-import com.nttdata.bootcamp.service.kafka.CustomerEventsService;
 import com.nttdata.bootcamp.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,28 +47,23 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
     @Override
     public Mono<Passive> saveCurrentAccount(Passive dataCurrentAccount,Boolean creditCard) {
         Mono<Passive> passive = Mono.empty();
-
-        if( creditCard){
-            dataCurrentAccount.setFreeCommission(true);
-            dataCurrentAccount.setFlagPyme(true);
-
-        }
-        else{
-            dataCurrentAccount.setFreeCommission(false);
-            dataCurrentAccount.setFlagPyme(false);
-
-        }
         dataCurrentAccount.setFlagVip(false);
-
         dataCurrentAccount.setMovementsMonthly(false);
         dataCurrentAccount.setLimitMovementsMonthly(0);
         dataCurrentAccount.setSaving(false);
         dataCurrentAccount.setCurrentAccount(true);
         dataCurrentAccount.setFixedTerm(false);
 
-         /*this.customerEventsService.customerList()
-                .filter(x -> x.getDni().equals(dataCurrentAccount.getDni()))
-                .next();*/
+        if(creditCard){
+            dataCurrentAccount.setFreeCommission(true);
+            dataCurrentAccount.setCommissionMaintenance(0);
+            dataCurrentAccount.setFlagPyme(true);
+        }
+        else{
+            dataCurrentAccount.setFreeCommission(false);
+            dataCurrentAccount.setCommissionMaintenance(1);
+            dataCurrentAccount.setFlagPyme(false);
+        }
 
         if(dataCurrentAccount.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
             passive = passiveService.searchByCurrentCustomer(dataCurrentAccount);

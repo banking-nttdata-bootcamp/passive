@@ -53,29 +53,24 @@ public class SavingAccountServiceImpl implements SavingAccountService {
         dataSavingAccount.setSaving(true);
         dataSavingAccount.setCurrentAccount(false);
         dataSavingAccount.setFixedTerm(false);
+        dataSavingAccount.setFlagPyme(false);
+
         if(creditCard){
             dataSavingAccount.setDailyAverage(true);
             dataSavingAccount.setFlagVip(true);
-            dataSavingAccount.setFlagPyme(false);
         }
         else{
             dataSavingAccount.setDailyAverage(false);
             dataSavingAccount.setFlagVip(false);
-            dataSavingAccount.setFlagPyme(false);
         }
-
 
         if(dataSavingAccount.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
             passive = passiveService.searchBySavingCustomer(dataSavingAccount);
-        }
-        if(dataSavingAccount.getTypeCustomer().equals(Constant.BUSINESS_CUSTOMER)){
-
         }
 
         return passive
                 .flatMap(__ -> Mono.<Passive>error(new Error("The customer with DNI " + dataSavingAccount.getDni() + " have an account")))
                 .switchIfEmpty(passiveRepository.save(dataSavingAccount));
-        //return passiveSavingRepository.save(dataPassiveSaving);
     }
 
     @Override

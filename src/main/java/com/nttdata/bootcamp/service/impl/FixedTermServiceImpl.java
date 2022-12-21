@@ -56,16 +56,14 @@ public class FixedTermServiceImpl implements FixedTermService {
         dataFixedTerm.setFixedTerm(true);
         dataFixedTerm.setFlagVip(false);
         dataFixedTerm.setFlagPyme(false);
+
         if(dataFixedTerm.getTypeCustomer().equals(Constant.PERSONAL_CUSTOMER)){
             passive = passiveService.searchByFixedTermCustomer(dataFixedTerm);
         }
-        if(dataFixedTerm.getTypeCustomer().equals(Constant.BUSINESS_CUSTOMER)){
 
-        }
         return passive
                 .flatMap(__ -> Mono.<Passive>error(new Error("The customer with DNI " + dataFixedTerm.getDni() + " have and account")))
                 .switchIfEmpty(passiveRepository.save(dataFixedTerm));
-        //return passiveSavingRepository.save(dataPassiveSaving);
     }
 
     @Override
